@@ -27,4 +27,4 @@ Placeholders:
 ```
 
 All these placeholders can be followed by _peak% to show the peak tier and can be started with %rawtier to show the tier without color.
-They can also be prefixed with %playertier
+They can also be prefixed with %playertier\_\[player's ign\] to show a player's tier by name.
