@@ -1,0 +1,13 @@
+themasterkitty\tiertagger\utils\PlayerUtil.class
+themasterkitty\tiertagger\data\Site.class
+themasterkitty\tiertagger\TiersCommand.class
+themasterkitty\tiertagger\TierTagger.class
+themasterkitty\tiertagger\data\Ranking.class
+themasterkitty\tiertagger\TierExpansion.class
+themasterkitty\tiertagger\data\TierData.class
+themasterkitty\tiertagger\TiersCommand$1.class
+themasterkitty\tiertagger\utils\Formatter.class
+themasterkitty\tiertagger\data\Region.class
+themasterkitty\tiertagger\data\Mode.class
+themasterkitty\tiertagger\data\Fetcher.class
+themasterkitty\tiertagger\RawTierExpansion.class
