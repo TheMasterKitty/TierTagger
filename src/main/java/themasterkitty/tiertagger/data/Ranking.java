@@ -2,7 +2,7 @@ package themasterkitty.tiertagger.data;
 
 import javax.annotation.Nullable;
 
-public record Ranking(int tier, boolean pos, @Nullable Integer peak_tier, @Nullable Boolean peak_pos, boolean retired, long attained) {
+public record Ranking(int tier, boolean pos, @Nullable Integer peak_tier, @Nullable Boolean peak_pos, boolean retired) {
     public String tierString() {
         return (pos ? "H" : "L") + "T" + tier;
     }

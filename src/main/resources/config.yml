@@ -2,7 +2,7 @@ untested-text: "Untested" # used in placeholder
 
 # /tiers command
 player-no-exist: "&cThat player doesn't exist."
-player-isnt-tested: "&cThat player is not tested on %site%." # %site% = McTiers/SubTiers
+player-isnt-tested: "&cThat player is not tested on %site%." # %site% = site name
 format-title: # %player% = target name, %points% = total points, %overall% = overall, %region% = region
   - "&6%player%'s Tiers"
   - "&cPoints: &f%points%"
@@ -43,3 +43,9 @@ colors: # colors for tiers when displayed on tier tagger or command, can use &a 
   "elytra": "&f"
   "trident": "&f"
   "debuff": "&f"
+  cart: "&f"
+  crystal: "&f"
+  diamondPot: "&f"
+  diamondSmp: "&f"
+  netheritePot: "&f"
+  neth_pot: "&f"

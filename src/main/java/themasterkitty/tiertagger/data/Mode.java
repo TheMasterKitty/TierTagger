@@ -1,32 +1,37 @@
 package themasterkitty.tiertagger.data;
 
 public enum Mode {
-    vanilla("Vanilla", Site.McTiers),
-    sword("Sword", Site.McTiers),
-    uhc("UHC", Site.McTiers),
-    pot("Pot", Site.McTiers),
-    nethop("Neth OP", Site.McTiers),
-    smp("SMP", Site.McTiers),
-    axe("Axe", Site.McTiers),
-    creeper("Creeper", Site.SubTiers),
-    bow("Bow", Site.SubTiers),
-    manhunt("Manhunt", Site.SubTiers),
-    og_vanilla("OG Vanilla", Site.SubTiers),
-    bed("Bed", Site.SubTiers),
-    minecart("Minecart", Site.SubTiers),
-    mace("Mace", Site.SubTiers),
-    speed("Speed", Site.SubTiers),
-    iron_pot("Iron Pot", Site.SubTiers),
-    dia_smp("Dia SMP", Site.SubTiers),
-    dia_crystal("Diamond Crystal", Site.SubTiers),
-    elytra("Elytra", Site.SubTiers),
-    trident("Trident", Site.SubTiers),
-    debuff("Debuff", Site.SubTiers);
+    vanilla("Vanilla"),
+    sword("Sword"),
+    uhc("UHC"),
+    pot("Pot"),
+    nethop("Netherite OP"),
+    smp("SMP"),
+    axe("Axe"),
+    axeoce("Axe"),
+    creeper("Creeper"),
+    bow("Bow"),
+    manhunt("Manhunt"),
+    og_vanilla("OG Vanilla"),
+    bed("Bed"),
+    minecart("Minecart"),
+    mace("Mace"),
+    speed("Speed"),
+    iron_pot("Iron Pot"),
+    dia_smp("Dia SMP"),
+    dia_crystal("Diamond Crystal"),
+    elytra("Elytra"),
+    trident("Trident"),
+    debuff("Debuff"),
+    cart("Cart"),
+    crystal("Crystal"),
+    diamondPot("Diamond Pot"),
+    diamondSmp("Diamond SMP"),
+    netheritePot("Netherite Pot"),
+    neth_pot("Netherite Pot");
 
     public final String name;
-    public final Site site;
-    Mode(String name, Site site) {
+    Mode(String name) {
         this.name = name;
-        this.site = site;
     }
 }

@@ -18,6 +18,7 @@ public final class TierTagger extends JavaPlugin {
             new TierExpansion().register();
             new RawTierExpansion().register();
             new PlayerTierExpansion().register();
+            new RawPlayerTierExpansion().register();
         }
     }
 }

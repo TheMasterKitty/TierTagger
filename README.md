@@ -1,9 +1,22 @@
 # TierTagger
 McTiers and SubTiers tier-tagger with placeholders and a /tiers command
 
-Placeholders:
+Placeholder Format:
 ```
-%tier_vanilla%
+%tier_[site]_[name]%
+%tier_[site]_[name]_peak%
+
+%rawtier_[site]_[name]%
+%rawtier_[site]_[name]_peak%
+
+%playertier_[site]_[name]_[player]%
+%playertier_[site]_[name]_[player]_peak%
+
+%rawplayertier_[site]_[name]_[player]%
+%rawplayertier_[site]_[name]_[player]_peak%
+```
+```
+%tier_mctiers_vanilla%
 %tier_sword%
 %tier_uhc%
 %tier_pot%
@@ -27,4 +40,4 @@ Placeholders:
 ```
 
 All these placeholders can be followed by _peak% to show the peak tier and can be started with %rawtier to show the tier without color.
-They can also be prefixed with %playertier
+They can also be prefixed with %playertier\_\[player's ign\] to show a player's tier by name.

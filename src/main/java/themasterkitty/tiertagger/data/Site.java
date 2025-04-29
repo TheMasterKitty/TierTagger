@@ -1,11 +1,15 @@
 package themasterkitty.tiertagger.data;
 
-public enum Site {
-    McTiers("mctiers.com"),
-    SubTiers("subtiers.net");
+import themasterkitty.tiertagger.data.fetcher.*;
 
-    public final String domain;
-    Site(String domain) {
-        this.domain = domain;
+public enum Site {
+    McTiers(new McTiersFetcher()),
+    SubTiers(new SubTiersFetcher()),
+    OceTiers(new OceTiersFetcher()),
+    McTiersIO(new McTiersIOFetcher());
+
+    public final Fetcher fetcher;
+    Site(Fetcher fetcher) {
+        this.fetcher = fetcher;
     }
 }

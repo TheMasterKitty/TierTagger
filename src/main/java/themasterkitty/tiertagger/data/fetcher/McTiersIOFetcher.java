@@ -1,8 +1,11 @@
-package themasterkitty.tiertagger.data;
+package themasterkitty.tiertagger.data.fetcher;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import themasterkitty.tiertagger.data.Mode;
+import themasterkitty.tiertagger.data.Ranking;
+import themasterkitty.tiertagger.data.Region;
+import themasterkitty.tiertagger.data.TierData;
 
 import javax.annotation.Nullable;
 import java.net.URI;
@@ -10,25 +13,33 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.TimerTask;
 import java.util.UUID;
 
-public class Fetcher {
-    private static final HashMap<Map.Entry<UUID, Site>, TierData> cache = new HashMap<>();
+public class McTiersIOFetcher extends Fetcher {
+    private static final HashMap<UUID, TierData> cache = new HashMap<>();
+
+    static {
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                cache.clear();
+            }
+        }, 0, 60 * 60 * 1000);
+    }
 
     @Nullable
-    public static TierData fetchData(UUID id, Site site) {
-        Map.Entry<UUID, Site> key = Map.entry(id, site);
-
-        if (cache.containsKey(key)) return cache.get(key);
+    public TierData fetchData(UUID id) {
+        if (cache.containsKey(id)) return cache.get(id);
 
         try (HttpClient http = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder(
-                            URI.create("https://" + site.domain + "/api/profile/" + id.toString().replaceAll("-", "")))
+                            URI.create("https://mctiers.io/api/profile/" + id.toString().replaceAll("-", "")))
                     .header("accept", "application/json")
                     .build();
 
             HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) return null;
 
             JsonObject obj = JsonParser.parseString(response.body()).getAsJsonObject();
 
@@ -39,13 +50,12 @@ public class Fetcher {
                 ranks.put(Mode.valueOf(mode), new Ranking(
                         data.get("tier").getAsInt(),
                         data.get("pos").getAsInt() == 0,
-                        data.has("peak_tier") ? data.get("peak_tier").getAsInt() : null,
-                        data.has("peak_pos") ? data.get("peak_pos").getAsInt() == 0 : null,
-                        data.get("retired").getAsBoolean(),
-                        data.get("attained").getAsLong()
+                        data.has("peak_tier") && !data.get("peak_tier").isJsonNull() ? data.get("peak_tier").getAsInt() : null,
+                        data.has("peak_pos") && !data.get("peak_pos").isJsonNull() ? data.get("peak_pos").getAsInt() == 0 : null,
+                        data.get("retired").getAsBoolean()
                 ));
             }
-            cache.put(key, new TierData(ranks,
+            cache.put(id, new TierData(ranks,
                     obj.get("overall").getAsInt(),
                     obj.get("points").getAsInt(),
                     Region.valueOf(obj.get("region").getAsString())
@@ -55,6 +65,6 @@ public class Fetcher {
             return null;
         }
 
-        return cache.get(key);
+        return cache.get(id);
     }
 }

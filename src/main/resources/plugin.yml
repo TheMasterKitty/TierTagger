@@ -1,5 +1,5 @@
 name: TierTagger
-version: '1.0.0'
+version: '1.1.0'
 main: themasterkitty.tiertagger.TierTagger
 api-version: '1.21'
 authors: [ TheMasterKitty ]
@@ -8,4 +8,4 @@ softdepend: [ PlaceholderAPI ]
 commands:
   tiers:
     description: "Get a player's tiers"
-    usage: "§cUsage: /tiers <player> (mctiers/subtiers)"
+    usage: "§cUsage: /tiers <player> (site)"

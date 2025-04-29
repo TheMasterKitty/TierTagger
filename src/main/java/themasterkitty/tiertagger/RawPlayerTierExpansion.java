@@ -5,22 +5,20 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import themasterkitty.tiertagger.data.Site;
-import themasterkitty.tiertagger.data.fetcher.McTiersFetcher;
 import themasterkitty.tiertagger.data.Mode;
+import themasterkitty.tiertagger.data.Site;
 import themasterkitty.tiertagger.data.TierData;
 import themasterkitty.tiertagger.utils.Formatter;
 import themasterkitty.tiertagger.utils.PlayerUtil;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
-public class PlayerTierExpansion extends PlaceholderExpansion {
+public class RawPlayerTierExpansion extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
-        return "playertier";
+        return "rawplayertier";
     }
 
     @Override
@@ -51,7 +49,7 @@ public class PlayerTierExpansion extends PlaceholderExpansion {
         if (targetid == null) return null;
         TierData data = site.fetcher.fetchData(targetid.getKey());
         if (data == null || !data.rankings().containsKey(mode)) return TierTagger.INSTANCE.getConfig().getString("untested-text");
-        return Formatter.colorTier(peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString());
+        return peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString();
     }
 
     @Override

@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import themasterkitty.tiertagger.data.Fetcher;
 import themasterkitty.tiertagger.data.Site;
 import themasterkitty.tiertagger.data.TierData;
 import themasterkitty.tiertagger.utils.Formatter;
@@ -39,7 +38,7 @@ public class TiersCommand implements CommandExecutor, TabCompleter {
                     return;
                 }
 
-                TierData data = Fetcher.fetchData(p.getKey(), site);
+                TierData data = site.fetcher.fetchData(p.getKey());
                 if (data == null || data.rankings().isEmpty()) {
                     sender.sendMessage(Formatter.format(TierTagger.INSTANCE.getConfig().getString("player-isnt-tested")).replaceAll("%site%", site.name()));
                 }

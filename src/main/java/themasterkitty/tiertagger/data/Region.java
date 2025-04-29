@@ -4,5 +4,6 @@ public enum Region {
     NA,
     EU,
     AS,
-    AU
+    AU,
+    OC
 }

@@ -40,6 +40,6 @@ public class Formatter {
             }
             text.append("\n");
         }
-        return text.toString();
+        return text.toString().trim();
     }
 }
