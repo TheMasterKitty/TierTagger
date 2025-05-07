@@ -1,9 +1,10 @@
 name: TierTagger
-version: '1.1.0'
+version: '1.2.0'
 main: themasterkitty.tiertagger.TierTagger
 api-version: '1.21'
 authors: [ TheMasterKitty ]
 softdepend: [ PlaceholderAPI ]
+folia-supported: true
 
 commands:
   tiers:

@@ -1,23 +1,24 @@
-package themasterkitty.tiertagger;
+package themasterkitty.tiertagger.papi;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import themasterkitty.tiertagger.data.Site;
-import themasterkitty.tiertagger.data.fetcher.McTiersFetcher;
+import themasterkitty.tiertagger.TierTagger;
 import themasterkitty.tiertagger.data.Mode;
+import themasterkitty.tiertagger.data.Site;
 import themasterkitty.tiertagger.data.TierData;
-import themasterkitty.tiertagger.utils.Formatter;
+import themasterkitty.tiertagger.utils.PlayerUtil;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Map;
+import java.util.UUID;
 
-public class TierExpansion extends PlaceholderExpansion {
+public class RawPlayerTierExpansion extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
-        return "tier";
+        return "rawplayertier";
     }
 
     @Override
@@ -44,9 +45,11 @@ public class TierExpansion extends PlaceholderExpansion {
         catch (Exception ex) { return null; }
         boolean peak = params.endsWith("_peak");
 
-        TierData data = site.fetcher.fetchData(player.getUniqueId());
+        Map.Entry<UUID, String> targetid = PlayerUtil.getUUID(params.split("_")[2]);
+        if (targetid == null) return null;
+        TierData data = site.fetcher.fetchData(targetid.getKey());
         if (data == null || !data.rankings().containsKey(mode)) return TierTagger.INSTANCE.getConfig().getString("untested-text");
-        return Formatter.colorTier(peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString());
+        return peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString();
     }
 
     @Override

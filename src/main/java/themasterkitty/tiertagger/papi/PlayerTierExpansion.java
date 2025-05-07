@@ -1,10 +1,11 @@
-package themasterkitty.tiertagger;
+package themasterkitty.tiertagger.papi;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import themasterkitty.tiertagger.TierTagger;
 import themasterkitty.tiertagger.data.Mode;
 import themasterkitty.tiertagger.data.Site;
 import themasterkitty.tiertagger.data.TierData;
@@ -15,10 +16,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
-public class RawPlayerTierExpansion extends PlaceholderExpansion {
+public class PlayerTierExpansion extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
-        return "rawplayertier";
+        return "playertier";
     }
 
     @Override
@@ -49,7 +50,7 @@ public class RawPlayerTierExpansion extends PlaceholderExpansion {
         if (targetid == null) return null;
         TierData data = site.fetcher.fetchData(targetid.getKey());
         if (data == null || !data.rankings().containsKey(mode)) return TierTagger.INSTANCE.getConfig().getString("untested-text");
-        return peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString();
+        return Formatter.colorTier(peak ? data.rankings().get(mode).peakString() : data.rankings().get(mode).tierString());
     }
 
     @Override

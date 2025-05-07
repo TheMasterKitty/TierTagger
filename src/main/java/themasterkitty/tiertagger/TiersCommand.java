@@ -6,7 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import themasterkitty.tiertagger.data.Site;
 import themasterkitty.tiertagger.data.TierData;
 import themasterkitty.tiertagger.utils.Formatter;
@@ -29,29 +28,25 @@ public class TiersCommand implements CommandExecutor, TabCompleter {
         else site = Site.McTiers;
         if (site == null) return false;
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Map.Entry<UUID, String> p = PlayerUtil.getUUID(args[0]);
-                if (p == null) {
-                    sender.sendMessage(Formatter.format(TierTagger.INSTANCE.getConfig().getString("player-no-exist")));
-                    return;
-                }
-
-                TierData data = site.fetcher.fetchData(p.getKey());
-                if (data == null || data.rankings().isEmpty()) {
-                    sender.sendMessage(Formatter.format(TierTagger.INSTANCE.getConfig().getString("player-isnt-tested")).replaceAll("%site%", site.name()));
-                }
-                else {
-                    String title = Formatter.format(String.join("\n", TierTagger.INSTANCE.getConfig().getStringList("format-title")))
-                            .replaceAll("%player%", p.getValue())
-                            .replaceAll("%points%", NumberFormat.getInstance().format(data.points()))
-                            .replaceAll("%overall%", "#" + NumberFormat.getInstance().format(data.overall()))
-                            .replaceAll("%region%", data.region().name());
-                    sender.sendMessage(title + "\n" + Formatter.formatRankings(data.rankings()));
-                }
+        TierTagger.scheduler.async().runNow(() -> {
+            Map.Entry<UUID, String> p = PlayerUtil.getUUID(args[0]);
+            if (p == null) {
+                sender.sendMessage(Formatter.format(TierTagger.INSTANCE.getConfig().getString("player-no-exist")));
+                return;
             }
-        }.runTaskAsynchronously(TierTagger.INSTANCE);
+
+            TierData data = site.fetcher.fetchData(p.getKey());
+            if (data == null || data.rankings().isEmpty()) {
+                sender.sendMessage(Formatter.format(TierTagger.INSTANCE.getConfig().getString("player-isnt-tested")).replaceAll("%site%", site.name()));
+            } else {
+                String title = Formatter.format(String.join("\n", TierTagger.INSTANCE.getConfig().getStringList("format-title")))
+                        .replaceAll("%player%", p.getValue())
+                        .replaceAll("%points%", NumberFormat.getInstance().format(data.points()))
+                        .replaceAll("%overall%", "#" + NumberFormat.getInstance().format(data.overall()))
+                        .replaceAll("%region%", data.region().name());
+                sender.sendMessage(title + "\n" + Formatter.formatRankings(data.rankings()));
+            }
+        });
 
         return true;
     }
