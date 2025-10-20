@@ -15,14 +15,14 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class McTiersIOFetcher extends Fetcher {
+public class PvPTiersFetcher extends Fetcher {
     @Nullable
     public TierData fetchData(UUID id) {
         if (cache.containsKey(id)) return cache.get(id);
 
         try (HttpClient http = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder(
-                            URI.create("https://mctiers.io/api/profile/" + id.toString().replaceAll("-", "")))
+                            URI.create("https://pvptiers.com/api/profile/" + id.toString().replaceAll("-", "")))
                     .header("accept", "application/json")
                     .build();
 

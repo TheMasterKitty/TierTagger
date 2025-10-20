@@ -6,7 +6,7 @@ public enum Site {
     McTiers(new McTiersFetcher()),
     SubTiers(new SubTiersFetcher()),
     OceTiers(new OceTiersFetcher()),
-    McTiersIO(new McTiersIOFetcher());
+    PvPTiers(new PvPTiersFetcher());
 
     public final Fetcher fetcher;
     Site(Fetcher fetcher) {
